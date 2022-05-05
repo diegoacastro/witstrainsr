@@ -11,17 +11,18 @@ get_tariffs(reporter, partner, product, year, datatype)
 Codes or \code{"all"}.}
 
 \item{partner}{A character vector with partners three-digit ISO Country
-Codes, \code{"all"} or \code{"000"} (world).}
+Codes, \code{"all"} or \code{"000"} (world, the default).}
 
 \item{product}{A character vector with six-digit product codes (HS6) or
-\code{"all"}.}
+\code{"all"} (the default).}
 
 \item{year}{A character, numeric or integer vector with years in the
 four-digit format.}
 
-\item{datatype}{Should be "reported" or "aveestimated". "reported" provides
-only tariff rates and "aveestimated" provides tariff rates and ad valorem
-equivalents of specific duties estimated using UNCTAD methods.}
+\item{datatype}{Should be "reported" (the default) or "aveestimated".
+"reported" provides only tariff rates and "aveestimated" provides tariff
+rates and ad valorem equivalents of specific duties estimated using UNCTAD
+methods.}
 }
 \value{
 \code{get_tariffs()} returns a data frame with the following columns:
@@ -87,8 +88,7 @@ get_tariffs(
   reporter = c("076", "840"),
   partner = "all",
   product = "870350",
-  year = "2017",
-  datatype = "reported"
+  year = "2017"
 )
 
 ## Note that, if the reporter vector above is replaced by "all", it will
@@ -113,10 +113,7 @@ get_tariffs(
 
 get_tariffs(
   reporter = "918",
-  partner = "000",
-  product = "all",
-  year = "2015",
-  datatype = "reported"
+  year = "2015"
 )
 
 ## End(Not run)

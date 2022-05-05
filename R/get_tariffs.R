@@ -12,14 +12,15 @@
 #' @param reporter A character vector with reporters three-digit ISO Country
 #' Codes or `"all"`.
 #' @param partner A character vector with partners three-digit ISO Country
-#' Codes, `"all"` or `"000"` (world).
+#' Codes, `"all"` or `"000"` (world, the default).
 #' @param product A character vector with six-digit product codes (HS6) or
-#' `"all"`.
+#' `"all"` (the default).
 #' @param year A character, numeric or integer vector with years in the
 #' four-digit format.
-#' @param datatype Should be "reported" or "aveestimated". "reported" provides
-#' only tariff rates and "aveestimated" provides tariff rates and ad valorem
-#' equivalents of specific duties estimated using UNCTAD methods.
+#' @param datatype Should be "reported" (the default) or "aveestimated".
+#' "reported" provides only tariff rates and "aveestimated" provides tariff
+#' rates and ad valorem equivalents of specific duties estimated using UNCTAD
+#' methods.
 #'
 #' @return
 #' `get_tariffs()` returns a data frame with the following columns:
@@ -82,8 +83,7 @@
 #'   reporter = c("076", "840"),
 #'   partner = "all",
 #'   product = "870350",
-#'   year = "2017",
-#'   datatype = "reported"
+#'   year = "2017"
 #' )
 #'
 #' ## Note that, if the reporter vector above is replaced by "all", it will
@@ -108,16 +108,17 @@
 #'
 #' get_tariffs(
 #'   reporter = "918",
-#'   partner = "000",
-#'   product = "all",
-#'   year = "2015",
-#'   datatype = "reported"
+#'   year = "2015"
 #' )
 #'
 #' ## End(Not run)
 #'
 #' @export
-get_tariffs <- function(reporter, partner, product, year, datatype) {
+get_tariffs <- function(reporter,
+                        partner = "000",
+                        product = "all",
+                        year,
+                        datatype = "reported") {
 
   # Initial paramenters check
   if(!(is.character(reporter) & sum(nchar(reporter) == 3) == length(reporter))) {
