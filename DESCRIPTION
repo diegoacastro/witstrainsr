@@ -1,0 +1,20 @@
+Package: witstrainsr
+Type: Package
+Title: Access import tariff data programmatically
+Version: 0.0.0.9000
+Author: Diego Afonso de Castro
+Maintainer: Diego Afonso de Castro <diegoacastro@gmail.com>
+Description: A WITS API in R to access programmatically preferential and 
+    most-favored-nation tariff rates available in the UNCTAD TRAINS dataset.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+Imports:
+    dplyr (>= 1.0.7),
+    stringr (>= 1.4.0),
+    xml2 (>= 1.3.2),
+    httr (>= 1.4.2),
+    magrittr (>= 2.0.1),
+    rlang (>= 0.4.11)
