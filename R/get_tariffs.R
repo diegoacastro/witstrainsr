@@ -143,7 +143,7 @@ get_tariffs <- function(reporter,
 
   # Url used to extract the data
   url_request <- paste0(
-    "http://wits.worldbank.org/API/V1/SDMX/V21/datasource/TRN",
+    "https://wits.worldbank.org/API/V1/SDMX/V21/datasource/TRN",
     "/reporter/", paste0(reporter, collapse = ";"),
     "/partner/", paste0(partner, collapse = ";"),
     "/product/", paste0(product, collapse = ";"),
@@ -175,7 +175,7 @@ get_tariffs <- function(reporter,
   xml_parameters <- xml_request %>%
     xml2::xml_find_all(.data, xpath = "//Series")
 
-  data.frame(
+  tibble::tibble(
     reporter_country_code = xml2::xml_attr(xml_parameters, attr = "REPORTER"),
     partner_country_code = xml2::xml_attr(xml_parameters, attr = "PARTNER"),
     product_code = xml2::xml_attr(xml_parameters, attr = "PRODUCTCODE"),

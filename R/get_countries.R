@@ -28,11 +28,11 @@
 get_countries <- function() {
 
   tmp_xml <-  xml2::xml_find_all(
-    xml2::read_xml("http://wits.worldbank.org/API/V1/wits/datasource/trn/country/ALL"),
+    xml2::read_xml("https://wits.worldbank.org/API/V1/wits/datasource/trn/country/ALL"),
     xpath = "//wits:country"
   )
 
-  data.frame(
+  tibble::tibble(
     iso3_code = xml2::xml_text(xml2::xml_find_all(tmp_xml, xpath = "//wits:iso3Code")),
     country_code = xml2::xml_attr(tmp_xml, attr = "countrycode"),
     name = xml2::xml_text(xml2::xml_find_all(tmp_xml, xpath = "//wits:name")),
@@ -42,7 +42,7 @@ get_countries <- function() {
     stringsAsFactors = FALSE
   ) %>%
     rbind(
-      data.frame(
+      tibble::tibble(
         iso3_code = "000",
         country_code = "000",
         name = "World",
