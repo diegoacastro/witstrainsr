@@ -20,11 +20,11 @@
 get_nomen_codes <- function() {
 
   tmp_xml <-  xml2::xml_find_all(
-    xml2::read_xml("http://wits.worldbank.org/API/V1/wits/datasource/trn/nomenclature/"),
+    xml2::read_xml("https://wits.worldbank.org/API/V1/wits/datasource/trn/nomenclature/"),
     xpath = "//wits:nomenclature"
   )
 
-  data.frame(
+  tibble::tibble(
     nomen_code = xml2::xml_attr(tmp_xml, "nomenclaturecode"),
     description = xml2::xml_text(tmp_xml),
     stringsAsFactors = FALSE

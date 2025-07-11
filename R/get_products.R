@@ -20,11 +20,11 @@
 get_products <- function() {
 
   tmp_xml <- xml2::xml_find_all(
-    xml2::read_xml("http://wits.worldbank.org/API/V1/wits/datasource/trn/product/all"),
+    xml2::read_xml("https://wits.worldbank.org/API/V1/wits/datasource/trn/product/all"),
     xpath = "//wits:product"
   )
 
-  data.frame(
+  tibble::tibble(
     product_code = xml2::xml_attr(tmp_xml, attr = "productcode"),
     product_desc = xml2::xml_text(xml2::xml_find_all(tmp_xml[1], xpath = "//wits:productdescription")),
     stringsAsFactors = FALSE

@@ -26,11 +26,11 @@
 get_availability <- function() {
 
   tmp_xml <- xml2::xml_find_all(
-    xml2::read_xml("http://wits.worldbank.org/API/V1/wits/datasource/trn/dataavailability/"),
+    xml2::read_xml("https://wits.worldbank.org/API/V1/wits/datasource/trn/dataavailability/"),
     xpath = "//wits:reporter"
   )
 
-  data.frame(
+  tibble::tibble(
     iso3_code = xml2::xml_attr(tmp_xml, attr = "iso3Code"),
     country_code = xml2::xml_attr(tmp_xml, attr = "countrycode"),
     country_name = xml2::xml_text(xml2::xml_find_all(tmp_xml[1], xpath = "//wits:name")),
