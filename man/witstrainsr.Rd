@@ -2,8 +2,8 @@
 % Please edit documentation in R/witstrainsr-package.R
 \docType{package}
 \name{witstrainsr}
-\alias{witstrainsr}
 \alias{witstrainsr-package}
+\alias{witstrainsr}
 \title{witstrainsr}
 \description{
 WITS REST API in R to programmatically access tariff data in UNCTAD TRAINS
