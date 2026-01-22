@@ -169,27 +169,28 @@ get_tariffs <- function(reporter,
   # Extract data
   xml_request <- xml2::read_xml(url_request)
 
-  xml_data <- xml_request %>%
-    xml2::xml_find_all(.data, xpath = "//Obs")
+  xml_series <- xml2::xml_find_all(xml_request, "//Series")
 
-  xml_parameters <- xml_request %>%
-    xml2::xml_find_all(.data, xpath = "//Series")
+  purrr::map_dfr(xml_series, function(s) {
 
-  tibble::tibble(
-    reporter_country_code = xml2::xml_attr(xml_parameters, attr = "REPORTER"),
-    partner_country_code = xml2::xml_attr(xml_parameters, attr = "PARTNER"),
-    product_code = xml2::xml_attr(xml_parameters, attr = "PRODUCTCODE"),
-    year = xml2::xml_attr(xml_data, attr = "TIME_PERIOD"),
-    tariff_simple_average = as.numeric(xml2::xml_attr(xml_data, attr = "OBS_VALUE")),
-    tariff_type = xml2::xml_attr(xml_data, attr = "TARIFFTYPE"),
-    n_total_lines = as.integer(xml2::xml_attr(xml_data, attr = "TOTALNOOFLINES")),
-    n_pref_lines = as.integer(xml2::xml_attr(xml_data, attr = "NBR_PREF_LINES")),
-    n_mfn_lines = as.integer(xml2::xml_attr(xml_data, attr = "NBR_MFN_LINES")),
-    n_specific_duty_lines = as.integer(xml2::xml_attr(xml_data, attr = "NBR_NA_LINES")),
-    tariff_sum_rates = as.numeric(xml2::xml_attr(xml_data, attr = "SUM_OF_RATES")),
-    tariff_min_rate = as.numeric(xml2::xml_attr(xml_data, attr = "MIN_RATE")),
-    tariff_max_rate = as.numeric(xml2::xml_attr(xml_data, attr = "MAX_RATE")),
-    nomen_code = xml2::xml_attr(xml_data, attr = "NOMENCODE")
-  )
+    obs <- xml2::xml_find_all(s, "./Obs")
+
+    tibble::tibble(
+      reporter_country_code = xml2::xml_attr(s, "REPORTER"),
+      partner_country_code= xml2::xml_attr(s, "PARTNER"),
+      product_code = xml2::xml_attr(s, "PRODUCTCODE"),
+      year = xml2::xml_attr(obs, "TIME_PERIOD"),
+      tariff_simple_average = as.numeric(xml2::xml_attr(obs, "OBS_VALUE")),
+      tariff_type = xml2::xml_attr(obs, "TARIFFTYPE"),
+      n_total_lines= as.integer(xml2::xml_attr(obs, "TOTALNOOFLINES")),
+      n_pref_lines = as.integer(xml2::xml_attr(obs, "NBR_PREF_LINES")),
+      n_mfn_lines = as.integer(xml2::xml_attr(obs, "NBR_MFN_LINES")),
+      n_specific_duty_lines = as.integer(xml2::xml_attr(obs, "NBR_NA_LINES")),
+      tariff_sum_rates = as.numeric(xml2::xml_attr(obs, "SUM_OF_RATES")),
+      tariff_min_rate = as.numeric(xml2::xml_attr(obs, "MIN_RATE")),
+      tariff_max_rate = as.numeric(xml2::xml_attr(obs, "MAX_RATE")),
+      nomen_code = xml2::xml_attr(obs, "NOMENCODE")
+    )
+  })
 
 }
